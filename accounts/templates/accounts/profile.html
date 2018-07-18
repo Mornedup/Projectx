@@ -1,0 +1,21 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+  <div>
+    <div>
+      <p>Username: {{ user }}</p>
+    </div>
+    <div>
+      <p>First Name: {{ user.first_name }}</p>
+    </div>
+    <div>
+      <p>Last Name: {{ user.last_name }}</p>
+    </div>
+    <div>
+      <p>E-mail: {{ user.email }}</p>
+    </div>
+  </div>
+  <div>
+    <a href="{% url 'edit_profile' %}">Edit Info</a>
+  </div>
+{% endblock %}

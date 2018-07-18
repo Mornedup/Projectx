@@ -3,10 +3,13 @@
 {% block content %}
   <div>
     <form method="post">
-      <h2>Signin</h2>
+      <h2>Edit Profile</h2>
+      <div>
+        <p>Username: {{ user }}</p>
+      </div>
       {% csrf_token %}
       {{form.as_p}}
-      <button type="submit"> Save </button>
+      <button type="submit"> Submit </button>
     </form>
   </div>
 {% endblock %}
