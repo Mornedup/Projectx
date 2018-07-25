@@ -18,10 +18,10 @@ class RegistrationForm(UserCreationForm):
         )
 
     def save(self, commit=True):
-        user = super(UserCreationForm, self).save(commit=False)
-        user.first_name = cleaned_data('first_name')
-        user.last_name = cleaned_data('last_name')
-        user.email = cleaned_data('email')
+        user = super(RegistrationForm, self).save(commit=False)
+        user.first_name = self.cleaned_data['first_name']
+        user.last_name = self.cleaned_data['last_name']
+        user.email = self.cleaned_data['email']
 
         if commit:
             user.save()
@@ -36,5 +36,17 @@ class ProfileEditForm(UserChangeForm):
         'first_name',
         'last_name',
         'email',
+        'password'
+        )
+
+class UserProfileEditForm(UserChangeForm):
+
+    class Meta:
+        model=UserProfile
+        fields = (
+        'city',
+        'phone',
+        'website',
+        'image',
         'password'
         )

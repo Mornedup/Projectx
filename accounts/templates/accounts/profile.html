@@ -5,6 +5,7 @@
     <div>
       <p>Username: {{ user }}</p>
     </div>
+    {{ user.UserProfile.image }}
     <div>
       <p>First Name: {{ user.first_name }}</p>
     </div>
@@ -12,11 +13,23 @@
       <p>Last Name: {{ user.last_name }}</p>
     </div>
     <div>
+      <p>Cellphone number: {{ user.UserProfile.phone }}</p>
+    </div>
+    <div>
       <p>E-mail: {{ user.email }}</p>
+    </div>
+    <div>
+      <p>Website: {{ user.UserProfile.website }}</p>
+    </div>
+    <div>
+      <p>City: {{ user.UserProfile.city }}</p>
     </div>
   </div>
   <div>
     <a href="{% url 'edit_profile' %}">Edit Info</a>
+  </div>
+  <div>
+    <p>Profile Image: <img src="{{ user.UserProfile.image.url }}" width="240"></p>
   </div>
   <div>
     <a href="{% url 'change_password' %}">Change Password</a>

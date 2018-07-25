@@ -8,6 +8,11 @@ class UserProfile(models.Model):
     user=models.OneToOneField(User)
     city=models.CharField(default='', max_length=100)
     phone=models.IntegerField(default=0)
+    website=models.URLField(default='')
+    image=models.ImageField(upload_to='profile_image/{}'.format(User), blank=True)
+
+    def __str__(self):
+        return self.user.username
 
 def create_profile(sender, **kwargs):
     if kwargs['created']:

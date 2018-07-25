@@ -1,4 +1,5 @@
 {% load staticfiles %}
+
 <html>
     <head>
         <title>Blogx</title>
@@ -15,10 +16,9 @@
               <a href="{% url 'view_profile' %}">Profile</a>
               <a href="{% url 'post_new' %}"><span class="glyphicon glyphicon-plus"></span></a>
             </div>
-          {% endif %}
-          {% if not user.is_authenticated %}
+          {% else %}
             <div>
-              <a href="{% url 'login' %}">Login</a>
+              <a href="{% url 'login' %} ">Login</a>
               <a href="{% url 'register' %}">Register</a>
             </div>
           {% endif %}
