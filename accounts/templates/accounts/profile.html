@@ -29,7 +29,7 @@
     <a href="{% url 'edit_profile' %}">Edit Info</a>
   </div>
   <div>
-    <p>Profile Image: <img src="{{ user.UserProfile.image.url }}" width="240"></p>
+    <p>Profile Image: <img src="{{ user.UserProfile.profile_image.url }}" width="240"></p>
   </div>
   <div>
     <a href="{% url 'change_password' %}">Change Password</a>

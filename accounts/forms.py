@@ -28,7 +28,7 @@ class RegistrationForm(UserCreationForm):
 
         return user
 
-class ProfileEditForm(UserChangeForm):
+class UserEditForm(UserChangeForm):
 
     class Meta:
         model=User
@@ -36,10 +36,10 @@ class ProfileEditForm(UserChangeForm):
         'first_name',
         'last_name',
         'email',
-        'password'
+        'password',
         )
 
-class UserProfileEditForm(UserChangeForm):
+class ProfileEditForm(forms.ModelForm):
 
     class Meta:
         model=UserProfile
@@ -47,6 +47,15 @@ class UserProfileEditForm(UserChangeForm):
         'city',
         'phone',
         'website',
-        'image',
-        'password'
         )
+
+    def save(self, commit=True):
+        userprofilex = super(ProfileEditForm, self).save(commit=False)
+        userprofilex.city = self.cleaned_data['city']
+        userprofilex.phone = self.cleaned_data['phone']
+        userprofilex.website = self.cleaned_data['website']
+
+        if commit:
+            userprofilex.save()
+
+        return userprofilex

@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from accounts.forms import RegistrationForm, ProfileEditForm, UserProfileEditForm
+from accounts.forms import RegistrationForm, UserEditForm, ProfileEditForm
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import PasswordChangeForm, AuthenticationForm
 from django.contrib.auth import update_session_auth_hash, login as auth_login
@@ -28,22 +28,22 @@ def register(request):
 
 @login_required
 def view_profile(request):
-    args = {'user': request.user, }
+    args = {'user': request.user }
     return render(request, 'accounts/profile.html', args)
 
 @login_required
 def edit_profile(request):
     if request.method == 'POST':
+        Userprofile = UserEditForm(request.POST, instance=request.user)
         Profileform = ProfileEditForm(request.POST, instance=request.user)
-        Userprofile = UserProfileEditForm(request.POST, instance=request.user)
         if (Profileform.is_valid() and Userprofile.is_valid()):
-            Profileform.save()
             Userprofile.save()
+            Profileform.save()
             return redirect('view_profile')
     else:
-        Profileform = ProfileEditForm(instance=request.user)
-        Userprofile = UserProfileEditForm(instance=request.user)
-        args = {'Userform': Profileform, 'Profileform':Userprofile}
+        Userprofile = UserEditForm(instance=request.user)
+        Profileform = ProfileEditForm(instance=request.UserProfile)
+        args = {'Userform': Userprofile, 'Profileform':Profileform}
         return render(request, 'accounts/edit_profile.html', args)
 
 @login_required
