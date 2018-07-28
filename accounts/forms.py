@@ -47,15 +47,5 @@ class ProfileEditForm(forms.ModelForm):
         'city',
         'phone',
         'website',
+
         )
-
-    def save(self, commit=True):
-        userprofilex = super(ProfileEditForm, self).save(commit=False)
-        userprofilex.city = self.cleaned_data['city']
-        userprofilex.phone = self.cleaned_data['phone']
-        userprofilex.website = self.cleaned_data['website']
-
-        if commit:
-            userprofilex.save()
-
-        return userprofilex

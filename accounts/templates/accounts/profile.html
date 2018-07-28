@@ -13,24 +13,31 @@
       <p>Last Name: {{ user.last_name }}</p>
     </div>
     <div>
-      <p>Cellphone number: {{ user.UserProfile.phone }}</p>
-    </div>
-    <div>
       <p>E-mail: {{ user.email }}</p>
     </div>
     <div>
-      <p>Website: {{ user.UserProfile.website }}</p>
+      <p>Cellphone number: {{ user.userprofile.phone }}</p>
     </div>
     <div>
-      <p>City: {{ user.UserProfile.city }}</p>
+      <p>Website: {{ user.userprofile.website }}</p>
+    </div>
+    <div>
+      <p>City: {{ user.userprofile.city }}</p>
     </div>
   </div>
   <div>
     <a href="{% url 'edit_profile' %}">Edit Info</a>
   </div>
-  <div>
-    <p>Profile Image: <img src="{{ user.UserProfile.profile_image.url }}" width="240"></p>
-  </div>
+  {% if user.userprofile.profile_image %}
+    <div>
+      <p>Profile Image:</p>
+      <img src="{{ user.userprofile.profile_image.url }}" width="240" alt="user.userprofile.profile_image">
+    </div>
+  {% else %}
+    <div>
+      <p>Profile Image:</p>
+    </div>
+  {% endif %}
   <div>
     <a href="{% url 'change_password' %}">Change Password</a>
   </div>

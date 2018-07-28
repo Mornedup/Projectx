@@ -12,8 +12,8 @@ def login(request):
         if form.is_valid():
             auth_login(request, form.get_user())
             return redirect('post_list')
-    else:
-        form = AuthenticationForm(request)
+
+    form = AuthenticationForm(request)
     return render(request, 'accounts/login.html', {'form': form})
 
 def register(request):
@@ -22,8 +22,8 @@ def register(request):
         if form.is_valid():
             form.save()
             return redirect('post_list')
-    else:
-        form = RegistrationForm()
+
+    form = RegistrationForm()
     return render(request, 'accounts/register.html', {'form': form})
 
 @login_required
@@ -34,16 +34,17 @@ def view_profile(request):
 @login_required
 def edit_profile(request):
     if request.method == 'POST':
-        Userprofile = UserEditForm(request.POST, instance=request.user)
-        Profileform = ProfileEditForm(request.POST, instance=request.user)
-        if (Profileform.is_valid() and Userprofile.is_valid()):
-            Userprofile.save()
+        Userform = UserEditForm(request.POST, instance=request.user)
+        Profileform = ProfileEditForm(request.POST, instance=request.user.userprofile)
+        if (Profileform.is_valid() and Userform.is_valid()):
+            Userform.save()
             Profileform.save()
             return redirect('view_profile')
+
     else:
-        Userprofile = UserEditForm(instance=request.user)
-        Profileform = ProfileEditForm(instance=request.UserProfile)
-        args = {'Userform': Userprofile, 'Profileform':Profileform}
+        Userform = UserEditForm(instance=request.user)
+        Profileform = ProfileEditForm(instance=request.user.userprofile)
+        args = {'Userform': Userform, 'Profileform':Profileform}
         return render(request, 'accounts/edit_profile.html', args)
 
 @login_required
@@ -55,9 +56,9 @@ def change_password(request):
             form.save()
             update_session_auth_hash(request, user=form.user)
             return redirect('view_profile')
-        else:
-            return redirect('change_password')
+
     else:
         form = PasswordChangeForm(user=request.user)
-        args = {'form': form}
-        return render(request, 'accounts/change_password.html', args)
+
+    args = {'form': form}
+    return render(request, 'accounts/change_password.html', args)
