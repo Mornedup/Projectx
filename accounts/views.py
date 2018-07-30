@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from accounts.forms import RegistrationForm, UserEditForm, ProfileEditForm
+from accounts.forms import RegistrationForm, UserEditForm, ProfileEditForm, ProfileImgForm
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import PasswordChangeForm, AuthenticationForm
 from django.contrib.auth import update_session_auth_hash, login as auth_login
@@ -28,7 +28,14 @@ def register(request):
 
 @login_required
 def view_profile(request):
-    args = {'user': request.user }
+    if request.method == 'POST':
+        PrflImgForm = ProfileImgForm(request.POST, request.FILES, instance=request.user.userprofile)
+        if PrflImgForm.is_valid():
+            PrflImgForm.save()
+            return redirect('view_profile')
+
+    PrflImgForm = ProfileImgForm(instance=request.user.userprofile)
+    args = {'user': request.user, 'PrflImgForm': PrflImgForm}
     return render(request, 'accounts/profile.html', args)
 
 @login_required

@@ -31,17 +31,17 @@
   <div>
     <a href="{% url 'edit_profile' %}">Edit Info</a>
   </div>
-  {% if user.userprofile.profile_image %}
+  <form method="post" enctype='multipart/form-data'>
+    {% csrf_token %}
+    {{PrflImgForm}}
+    <button type="submit"> Save new image </button>
     <div>
-      <p>Profile Image:</p>
-      <img src="{{ user.userprofile.profile_image.url }}" width="240" alt="user.userprofile.profile_image">
+      {% if user.userprofile.profile_image %}
+        <a href="{{ user.userprofile.profile_image.path }}"><img src="{{ user.userprofile.profile_image.url }}" width="240" ></a>
+      {% endif %}
     </div>
-  {% else %}
-    <div>
-      <p>Profile Image:</p>
-    </div>
-  {% endif %}
+  </form>
   <div>
-    <a href="{% url 'change_password' %}">Change Password</a>
+    <button href="{% url 'change_password' %}">Change Password</button>
   </div>
 {% endblock %}
