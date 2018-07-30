@@ -47,5 +47,5 @@ class ProfileEditForm(forms.ModelForm):
         'city',
         'phone',
         'website',
-
+        'description',
         )
