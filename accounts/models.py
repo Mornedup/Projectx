@@ -10,7 +10,7 @@ def profile_img_path(instance, filename):
 class UserProfile(models.Model):
     user=models.OneToOneField(User)
     city=models.CharField(default='', max_length=100, blank=True)
-    phone=models.IntegerField(default=0, blank=True)
+    phone=models.CharField(default='', max_length=10, blank=True)
     website=models.URLField(default='', blank=True)
     profile_image=models.ImageField(upload_to=profile_img_path, blank=True)
     description=models.TextField(blank=True)

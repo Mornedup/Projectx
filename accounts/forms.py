@@ -48,7 +48,6 @@ class ProfileEditForm(forms.ModelForm):
         'phone',
         'website',
         'description',
-        'profile_image',
         )
 
 class ProfileImgForm(forms.ModelForm):
