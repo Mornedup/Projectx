@@ -1,0 +1,47 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+  <div>
+    <div>
+      <p>Username: {{ user }}</p>
+    </div>
+    {{ user.UserProfile.image }}
+    <div>
+      <p>First Name: {{ user.first_name }}</p>
+    </div>
+    <div>
+      <p>Last Name: {{ user.last_name }}</p>
+    </div>
+    <div>
+      <p>E-mail: {{ user.email }}</p>
+    </div>
+    <div>
+      <p>Cellphone number: {{ user.userprofile.phone }}</p>
+    </div>
+    <div>
+      <p>Website: {{ user.userprofile.website }}</p>
+    </div>
+    <div>
+      <p>City: {{ user.userprofile.city }}</p>
+    </div>
+    <div>
+      <p>Description: {{ user.userprofile.description }}</p>
+    </div>
+  </div>
+  <div>
+    <a href="{% url 'edit_profile' %}">Edit Info</a>
+  </div>
+  <form method="post" enctype='multipart/form-data'>
+    {% csrf_token %}
+    {{PrflImgForm}}
+    <button type="submit"> Save new image </button>
+    <div>
+      {% if user.userprofile.profile_image %}
+        <a href="{{ user.userprofile.profile_image.path }}"><img src="{{ user.userprofile.profile_image.url }}" width="240" ></a>
+      {% endif %}
+    </div>
+  </form>
+  <div>
+    <button href="{% url 'change_password' %}">Change Password</button>
+  </div>
+{% endblock %}
