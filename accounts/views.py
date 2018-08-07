@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
-from accounts.forms import RegistrationForm, UserEditForm, ProfileEditForm, ProfileImgForm
-from .models import User
+from accounts.forms import RegistrationForm, UserEditForm, ProfileImgForm
+from .models import CUser
 from django.contrib.auth.forms import PasswordChangeForm, AuthenticationForm
 from django.contrib.auth import update_session_auth_hash, login as auth_login
 from django.contrib.auth.decorators import login_required
@@ -29,12 +29,12 @@ def register(request):
 @login_required
 def view_profile(request):
     if request.method == 'POST':
-        PrflImgForm = ProfileImgForm(request.POST, request.FILES, instance=request.user.userprofile)
+        PrflImgForm = ProfileImgForm(request.POST, request.FILES, instance=request.user)
         if PrflImgForm.is_valid():
             PrflImgForm.save()
             return redirect('view_profile')
 
-    PrflImgForm = ProfileImgForm(instance=request.user.userprofile)
+    PrflImgForm = ProfileImgForm(instance=request.user)
     args = {'user': request.user, 'PrflImgForm': PrflImgForm}
     return render(request, 'accounts/profile.html', args)
 
@@ -42,16 +42,13 @@ def view_profile(request):
 def edit_profile(request):
     if request.method == 'POST':
         Userform = UserEditForm(request.POST, instance=request.user)
-        Profileform = ProfileEditForm(request.POST, instance=request.user.userprofile)
-        if (Profileform.is_valid() and Userform.is_valid()):
+        if (Userform.is_valid()):
             Userform.save()
-            Profileform.save()
             return redirect('view_profile')
 
     else:
         Userform = UserEditForm(instance=request.user)
-        Profileform = ProfileEditForm(instance=request.user.userprofile)
-        args = {'Userform': Userform, 'Profileform':Profileform}
+        args = {'Userform': Userform}
         return render(request, 'accounts/edit_profile.html', args)
 
 @login_required
