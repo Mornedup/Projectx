@@ -41,7 +41,7 @@
       {% endif %}
     </div>
   </form>
-  <div>
-    <button href="{% url 'change_password' %}">Change Password</button>
-  </div>
+  <form action="{% url 'change_password' %}">
+    <button type="submit" >Change Password</button>
+  </form>
 {% endblock %}

@@ -1,10 +1,16 @@
 from django.db import models
-from django.contrib.auth.models import (
-    BaseUserManager, AbstractBaseUser
-)
+from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
+from django.core import validators
+from django.core.exceptions import ValidationError
 
 def profile_img_path(instance, filename):
     return 'user_{0}/profile_image/{1}'.format(instance.username, instance.profile_image.name)
+
+def phone_validate(arg):
+    if not len(arg)==10:
+        raise ValidationError('Please input a valid 10 digit telephone number')
+    if not arg.startswith('0'):
+        raise ValidationError('Please input a valid telephone number')
 
 class CUserManager(BaseUserManager):
     def create_user(self, username, email, password=None):
@@ -45,7 +51,7 @@ class CUser(AbstractBaseUser):
     first_name=models.CharField(max_length=40, blank=True)
     last_name=models.CharField(max_length=40, blank=True)
     email = models.EmailField(verbose_name='email address', max_length=255, unique=True,)
-    phone=models.CharField(verbose_name='contact number', default='', max_length=10, blank=True)
+    phone=models.CharField(verbose_name='contact number', default='', max_length=10, blank=True, validators=[phone_validate])
     city=models.CharField(default='', max_length=100, blank=True)
     website=models.URLField(default='', blank=True)
     date_of_birth = models.DateField(default='1901-01-01', blank=True)
