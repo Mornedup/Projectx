@@ -21,4 +21,4 @@ CMD ["python", "manage.py", "makemigrations"]
 CMD ["python", "manage.py", "makemigrations"]
 
 # Run app.py when the container launches
-CMD ["python", "app.py", "runserver"]
+CMD ["python", "manage.py", "runserver"]
