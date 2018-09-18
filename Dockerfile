@@ -16,9 +16,5 @@ EXPOSE 80
 # Define environment variable
 ENV NAME envx
 
-#update database
-CMD ["python", "manage.py", "makemigrations"]
-CMD ["python", "manage.py", "makemigrations"]
-
 # Run app.py when the container launches
 CMD ["python", "manage.py", "runserver"]
