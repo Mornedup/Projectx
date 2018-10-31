@@ -9,7 +9,7 @@ from .apps import BlogConfig
 def post_list(request):
     print(request.GET)
     posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
-    return render(request, 'blog/post_list.html', {'posts': posts, 'BaseTemplate': BlogConfig.BaseTemplate})
+    return render(request, 'blog/post_list.html', {'posts': posts, 'BaseTemplate': BlogConfig.BaseTemplate, 'date': ''})
 
 def post_detail(request, pk):
     post = get_object_or_404(Post, pk=pk)

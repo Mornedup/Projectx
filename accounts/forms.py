@@ -1,13 +1,13 @@
 from django import forms
-from django.contrib.auth.models import User
+from .models import CUser
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
-from accounts.models import UserProfile
+#from accounts.models import UserProfile
 
 class RegistrationForm(UserCreationForm):
     email= forms.EmailField(required=True)
 
     class Meta:
-        model=User
+        model=CUser
         fields = (
         'username',
         'first_name',
@@ -31,29 +31,22 @@ class RegistrationForm(UserCreationForm):
 class UserEditForm(UserChangeForm):
 
     class Meta:
-        model=User
+        model=CUser
         fields = (
         'first_name',
         'last_name',
         'email',
-        'password',
-        )
-
-class ProfileEditForm(forms.ModelForm):
-
-    class Meta:
-        model=UserProfile
-        fields = (
         'city',
         'phone',
         'website',
-        'description',
+        'bio',
+        'password',
         )
 
 class ProfileImgForm(forms.ModelForm):
 
     class Meta:
-        model=UserProfile
+        model=CUser
         fields = (
         'profile_image',
         )

@@ -5,7 +5,7 @@
     <div>
       <p>Username: {{ user }}</p>
     </div>
-    {{ user.UserProfile.image }}
+    {{ user.image }}
     <div>
       <p>First Name: {{ user.first_name }}</p>
     </div>
@@ -16,16 +16,16 @@
       <p>E-mail: {{ user.email }}</p>
     </div>
     <div>
-      <p>Cellphone number: {{ user.userprofile.phone }}</p>
+      <p>Cellphone number: {{ user.phone }}</p>
     </div>
     <div>
-      <p>Website: {{ user.userprofile.website }}</p>
+      <p>Website: {{ user.website }}</p>
     </div>
     <div>
-      <p>City: {{ user.userprofile.city }}</p>
+      <p>City: {{ user.city }}</p>
     </div>
     <div>
-      <p>Description: {{ user.userprofile.description }}</p>
+      <p>Description: {{ user.bio }}</p>
     </div>
   </div>
   <div>
@@ -36,12 +36,12 @@
     {{PrflImgForm}}
     <button type="submit"> Save new image </button>
     <div>
-      {% if user.userprofile.profile_image %}
-        <a href="{{ user.userprofile.profile_image.path }}"><img src="{{ user.userprofile.profile_image.url }}" width="240" ></a>
+      {% if user.profile_image %}
+        <a href="{{ user.profile_image.path }}"><img src="{{ user.profile_image.url }}" width="240" ></a>
       {% endif %}
     </div>
   </form>
-  <div>
-    <button href="{% url 'change_password' %}">Change Password</button>
-  </div>
+  <form action="{% url 'change_password' %}">
+    <button type="submit" >Change Password</button>
+  </form>
 {% endblock %}
